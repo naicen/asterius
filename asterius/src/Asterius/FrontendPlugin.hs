@@ -88,7 +88,9 @@ frontendPlugin = makeFrontendPlugin $ do
                   writeFile (p "dump-wasm-ast") $ show m
                   cmm_raw <- Stream.collect cmmRaw
                   writeFile (p "dump-cmm-raw-ast") $ show cmm_raw
-                  asmPrint dflags (p "dump-cmm-raw") cmm_raw,
+                  asmPrint dflags (p "dump-cmm-raw") cmm_raw
+                  writeFile (p "dump-stg-ast") $ show stg
+                  asmPrint dflags (p "dump-stg") stg,
         withCmmIR = \ir@CmmIR {..} obj_path -> do
           dflags <- GHC.getDynFlags
           let ms_mod =
