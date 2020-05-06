@@ -1,0 +1,37 @@
+steps:
+
+  - key: "asterius-image"
+    label: "asterius-image"
+    command: |
+      mkdir /tmp/asterius
+      mv .buildkite/* /tmp/asterius
+      git checkout -f master
+      mv /tmp/asterius/* .buildkite
+      rm -rf /tmp/asterius
+
+      docker pull debian:sid
+      docker build \
+        --compress \
+        --file base.Dockerfile \
+        --label "gitrev=$(git rev-parse HEAD)" \
+        --network host \
+        --no-cache \
+        --squash \
+        --tag terrorjack/asterius:base \
+        .
+      docker build \
+        --build-arg jobs=3 \
+        --compress \
+        --file stackage.Dockerfile \
+        --label "gitrev=$(git rev-parse HEAD)" \
+        --network host \
+        --no-cache \
+        --squash \
+        --tag terrorjack/asterius \
+        .
+      nix-shell \
+        .buildkite/shell.nix \
+        --command "docker save terrorjack/asterius | zstd -T8 --ultra -22 -o /tmp/asterius-image.tar.zst"
+      buildkite-agent artifact upload /tmp/asterius-image.tar.zst
+      rm /tmp/asterius-image.tar.zst
+      docker system prune --all --force
