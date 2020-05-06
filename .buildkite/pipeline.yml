@@ -9,6 +9,7 @@ steps:
       mv /tmp/asterius/* .buildkite
       rm -rf /tmp/asterius
 
+      docker system prune --all --force
       docker pull debian:sid
       docker build \
         --compress \
