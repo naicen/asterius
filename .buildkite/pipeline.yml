@@ -3,7 +3,7 @@ steps:
   - key: "asterius-image"
     label: "asterius-image"
     command: |
-      mkdir /tmp/asterius
+      mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
       git checkout -f origin/wip-image-th-stage
       mv /tmp/asterius/* .buildkite
