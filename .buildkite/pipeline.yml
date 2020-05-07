@@ -5,7 +5,7 @@ steps:
     command: |
       mkdir /tmp/asterius
       mv .buildkite/* /tmp/asterius
-      git checkout -f wip-image-th-stage
+      git checkout -f origin/wip-image-th-stage
       mv /tmp/asterius/* .buildkite
       rm -rf /tmp/asterius
 
