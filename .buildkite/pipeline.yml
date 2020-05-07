@@ -23,7 +23,7 @@ steps:
       #  .
       docker build \
         --build-arg jobs=8 \
-        --build-arg jobs_th=3 \
+        --build-arg jobs_th=2 \
         --compress \
         --file stackage.Dockerfile \
         --label "gitrev=$(git rev-parse HEAD)" \
