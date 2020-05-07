@@ -6,21 +6,21 @@ steps:
       mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
       git fetch
-      git checkout -f wip-image-th-stage
+      git checkout -f origin/wip-image-th-stage
       mv /tmp/asterius/* .buildkite
       rm -rf /tmp/asterius
 
       docker system prune --all --force
-      docker pull debian:sid
-      docker build \
-        --compress \
-        --file base.Dockerfile \
-        --label "gitrev=$(git rev-parse HEAD)" \
-        --network host \
-        --no-cache \
-        --squash \
-        --tag terrorjack/asterius:base \
-        .
+      docker pull terrorjack/asterius:base
+      #docker build \
+      #  --compress \
+      #  --file base.Dockerfile \
+      #  --label "gitrev=$(git rev-parse HEAD)" \
+      #  --network host \
+      #  --no-cache \
+      #  --squash \
+      #  --tag terrorjack/asterius:base \
+      #  .
       docker build \
         --build-arg jobs=8 \
         --build-arg jobs_th=4 \
