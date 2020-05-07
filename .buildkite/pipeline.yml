@@ -5,7 +5,7 @@ steps:
     command: |
       mkdir /tmp/asterius
       mv .buildkite/* /tmp/asterius
-      git checkout -f master
+      git checkout -f wip-image-th-stage
       mv /tmp/asterius/* .buildkite
       rm -rf /tmp/asterius
 
@@ -21,7 +21,8 @@ steps:
         --tag terrorjack/asterius:base \
         .
       docker build \
-        --build-arg jobs=3 \
+        --build-arg jobs=8 \
+        --build-arg jobs_th=4 \
         --compress \
         --file stackage.Dockerfile \
         --label "gitrev=$(git rev-parse HEAD)" \
