@@ -23,7 +23,7 @@ steps:
       #  .
       docker build \
         --build-arg jobs=8 \
-        --build-arg jobs_th=5 \
+        --build-arg jobs_th=6 \
         --compress \
         --file stackage.Dockerfile \
         --label "gitrev=$(git rev-parse HEAD)" \
@@ -34,7 +34,7 @@ steps:
         .
       nix-shell \
         .buildkite/shell.nix \
-        --command "docker save terrorjack/asterius | zstd -T8 --ultra -22 -o /tmp/asterius-image.tar.zst"
+        --command "docker save terrorjack/asterius | zstd -T8 -10 -o /tmp/asterius-image.tar.zst"
       buildkite-agent artifact upload /tmp/asterius-image.tar.zst
       rm /tmp/asterius-image.tar.zst
       docker system prune --all --force
