@@ -6,7 +6,7 @@ steps:
       mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
       git fetch
-      git checkout -f origin/wip-image-th-stage
+      git checkout -f origin/wip-update-deps
       mv /tmp/asterius/* .buildkite
       rm -rf /tmp/asterius
 
