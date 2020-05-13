@@ -1,5 +1,5 @@
 env:
-  ASTERIUS_BRANCH: wip-fakedata-only
+  ASTERIUS_BRANCH: wip-th-no-checks-fakedata-only
 
 steps:
 
