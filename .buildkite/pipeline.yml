@@ -1,3 +1,6 @@
+env:
+  ASTERIUS_BRANCH: wip-update-deps
+
 steps:
 
   - key: "asterius-base-image"
@@ -6,8 +9,8 @@ steps:
       rm -rf /tmp/asterius*
       mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
-      git fetch
-      git checkout -f origin/wip-update-deps
+      git fetch origin $ASTERIUS_BRANCH
+      git checkout -f origin/$ASTERIUS_BRANCH
       mv /tmp/asterius/* .buildkite
 
       docker system prune --all --force
@@ -35,8 +38,8 @@ steps:
       rm -rf /tmp/asterius*
       mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
-      git fetch
-      git checkout -f origin/wip-update-deps
+      git fetch origin $ASTERIUS_BRANCH
+      git checkout -f origin/$ASTERIUS_BRANCH
       mv /tmp/asterius/* .buildkite
 
       docker system prune --all --force
