@@ -1,26 +1,48 @@
 steps:
 
-  - key: "asterius-image"
-    label: "asterius-image"
+  - key: "asterius-base-image"
+    label: "asterius-base-image"
     command: |
+      rm -rf /tmp/asterius*
       mkdir -p /tmp/asterius
       mv .buildkite/* /tmp/asterius
       git fetch
       git checkout -f origin/wip-update-deps
       mv /tmp/asterius/* .buildkite
-      rm -rf /tmp/asterius
 
       docker system prune --all --force
-      docker pull debian:sid
       docker build \
         --compress \
         --file base.Dockerfile \
         --label "gitrev=$(git rev-parse HEAD)" \
         --network host \
         --no-cache \
+        --pull \
         --squash \
         --tag terrorjack/asterius:base \
         .
+      nix-shell \
+        .buildkite/shell.nix \
+        --run "docker save terrorjack/asterius:base | zstd -T8 -8 -o /tmp/asterius-base-image.tar.zst"
+      buildkite-agent artifact upload /tmp/asterius-base-image.tar.zst
+      rm -rf /tmp/asterius*
+      docker system prune --all --force
+
+  - key: "asterius-image"
+    label: "asterius-image"
+    depends_on: "asterius-base-image"
+    command: |
+      rm -rf /tmp/asterius*
+      mkdir -p /tmp/asterius
+      mv .buildkite/* /tmp/asterius
+      git fetch
+      git checkout -f origin/wip-update-deps
+      mv /tmp/asterius/* .buildkite
+
+      docker system prune --all --force
+      buildkite-agent artifact download asterius-base-image.tar.zst /tmp
+      docker load --input /tmp/asterius-base-image.tar.zst
+      rm -rf /tmp/asterius*
       docker build \
         --build-arg jobs=7 \
         --build-arg jobs_th=4 \
@@ -34,7 +56,7 @@ steps:
         .
       nix-shell \
         .buildkite/shell.nix \
-        --command "docker save terrorjack/asterius | zstd -T8 -8 -o /tmp/asterius-image.tar.zst"
+        --run "docker save terrorjack/asterius | zstd -T8 -8 -o /tmp/asterius-image.tar.zst"
       buildkite-agent artifact upload /tmp/asterius-image.tar.zst
-      rm /tmp/asterius-image.tar.zst
+      rm -rf /tmp/asterius*
       docker system prune --all --force
