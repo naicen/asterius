@@ -26,9 +26,9 @@ steps:
         .
       nix-shell \
         .buildkite/shell.nix \
-        --run "docker save terrorjack/asterius:base | zstd -T8 -8 -o /tmp/asterius-base-image.tar.zst"
-      buildkite-agent artifact upload /tmp/asterius-base-image.tar.zst
-      rm -rf /tmp/asterius*
+        --run "docker save terrorjack/asterius:base | zstd -T8 -8 -o asterius-base-image.tar.zst"
+      buildkite-agent artifact upload asterius-base-image.tar.zst
+      rm asterius-base-image.tar.zst
       docker system prune --all --force
 
   - key: "asterius-image"
@@ -59,7 +59,7 @@ steps:
         .
       nix-shell \
         .buildkite/shell.nix \
-        --run "docker save terrorjack/asterius | zstd -T8 -8 -o /tmp/asterius-image.tar.zst"
-      buildkite-agent artifact upload /tmp/asterius-image.tar.zst
-      rm -rf /tmp/asterius*
+        --run "docker save terrorjack/asterius | zstd -T8 -8 -o asterius-image.tar.zst"
+      buildkite-agent artifact upload asterius-image.tar.zst
+      rm asterius-image.tar.zst
       docker system prune --all --force
