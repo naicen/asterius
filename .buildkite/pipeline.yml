@@ -44,7 +44,9 @@ steps:
 
       docker system prune --all --force
       buildkite-agent artifact download asterius-base-image.tar.zst /tmp
-      docker load --input /tmp/asterius-base-image.tar.zst
+      nix-shell \
+        .buildkite/shell.nix \
+        --run "unzstd -c /tmp/asterius-base-image.tar.zst | docker load"
       rm -rf /tmp/asterius*
       docker build \
         --build-arg jobs=7 \
