@@ -1,5 +1,5 @@
 env:
-  ASTERIUS_BRANCH: wip-update-deps
+  ASTERIUS_BRANCH: wip-fakedata-only
 
 steps:
 
@@ -56,12 +56,6 @@ steps:
         --label "gitrev=$(git rev-parse HEAD)" \
         --network host \
         --no-cache \
-        --squash \
         --tag terrorjack/asterius \
         .
-      nix-shell \
-        .buildkite/shell.nix \
-        --run "docker save terrorjack/asterius | zstd -T8 -8 -o asterius-image.tar.zst"
-      buildkite-agent artifact upload asterius-image.tar.zst
-      rm asterius-image.tar.zst
       docker system prune --all --force
