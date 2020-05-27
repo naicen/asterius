@@ -52,7 +52,7 @@ parallelFoldMap n xs fn
         loop mvar !acc = getNextElem >>= \case -- was (force -> !acc)
           Nothing -> putMVar mvar acc
           Just y -> do
-            (force -> !res) <- fn y -- was: res <- fn y
+            !res <- fn y -- was: res <- fn y -- was (force -> !res) <- fn y
             loop mvar (acc <> res)
     forM_ ([0 ..] `zip` mvars) $ \(i, mvar) ->
       forkOn i (loop mvar mempty)
