@@ -16,7 +16,7 @@ jobs:
             curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-osx-x86_64-bin -o ~/.local/bin/stack
             chmod +x ~/.local/bin/stack
             stack --no-terminal setup 8.10.1
-            export PATH=$(stack exec printenv PATH)
+            export PATH=$(stack --resolver ghc-8.10.1 exec printenv PATH)
 
             ghc outside.hs
             ghc inside.hs
