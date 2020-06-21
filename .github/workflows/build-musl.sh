@@ -9,6 +9,7 @@ apk add --no-progress \
   alpine-sdk \
   autoconf \
   automake \
+  bash \
   binutils-gold \
   bzip2 \
   coreutils \
@@ -17,23 +18,29 @@ apk add --no-progress \
   findutils \
   g++ \
   gawk \
-  ghc \
   git \
+  gmp-dev \
   gzip \
+  libffi-dev \
   libtool \
   musl-dev \
   ncurses-dev \
   openssh \
   patch \
+  perl \
   py3-sphinx \
   sed \
   tar \
   xz \
   zlib-dev
+ln -s /usr/lib/libncursesw.so.6 /usr/lib/libtinfow.so.6
+
 mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
-chmod u+x ~/.local/bin/stack
-~/.local/bin/stack --system-ghc --resolver nightly-2020-06-20 install \
+chmod +x ~/.local/bin/stack
+mkdir ~/.stack
+echo "ghc-build: musl" > ~/.stack/config.yaml
+~/.local/bin/stack --resolver nightly-2020-06-20 install \
   alex \
   happy \
   hscolour
