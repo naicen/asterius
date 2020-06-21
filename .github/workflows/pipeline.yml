@@ -104,7 +104,7 @@ jobs:
           mkdir -p ~/.local/bin
           curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-osx-x86_64-bin -o ~/.local/bin/stack
           chmod +x ~/.local/bin/stack
-          ~/.local/bin/stack --resolver nightly-2020-06-01 install \
+          ~/.local/bin/stack --resolver nightly-2020-06-20 install \
             alex \
             happy \
             hscolour

@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200602T145955Z stretch main contrib non-free' > /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20200602T145955Z stretch/updates main contrib non-free' >> /etc/apt/sources.list
-echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200602T145955Z stretch-updates main contrib non-free' >> /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200615T204439Z stretch main contrib non-free' > /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20200615T204439Z stretch/updates main contrib non-free' >> /etc/apt/sources.list
+echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200615T204439Z stretch-updates main contrib non-free' >> /etc/apt/sources.list
 apt update
 apt full-upgrade -y
 apt install -y \
@@ -16,7 +16,6 @@ apt install -y \
   libffi-dev \
   libgmp-dev \
   libncurses-dev \
-  libnuma-dev \
   libtool-bin \
   pkg-config \
   python3-sphinx \
@@ -25,7 +24,7 @@ apt install -y \
 mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
 chmod u+x ~/.local/bin/stack
-~/.local/bin/stack --resolver nightly-2020-06-01 install \
+~/.local/bin/stack --resolver nightly-2020-06-20 install \
   alex \
   happy \
   hscolour

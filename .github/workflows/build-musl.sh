@@ -23,7 +23,6 @@ apk add --no-progress \
   libtool \
   musl-dev \
   ncurses-dev \
-  numactl-dev \
   openssh \
   patch \
   py3-sphinx \
@@ -34,7 +33,7 @@ apk add --no-progress \
 mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.3.1/stack-2.3.1-linux-x86_64-bin -o ~/.local/bin/stack
 chmod u+x ~/.local/bin/stack
-~/.local/bin/stack --system-ghc --resolver nightly-2020-06-01 install \
+~/.local/bin/stack --system-ghc --resolver nightly-2020-06-20 install \
   alex \
   happy \
   hscolour
