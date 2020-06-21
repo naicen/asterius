@@ -20,6 +20,7 @@ apk add --no-progress \
   gawk \
   git \
   gmp-dev \
+  grep \
   gzip \
   libffi-dev \
   libtool \
